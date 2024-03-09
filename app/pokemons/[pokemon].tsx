@@ -3,7 +3,7 @@ import { Link, useGlobalSearchParams, useNavigation } from 'expo-router';
 import { getPokemon } from '../../services/pokeApi';
 import { useQuery } from '@tanstack/react-query';
 import { Stack } from 'expo-router';
-import { Button, H2, Image, Text, View } from 'tamagui';
+import { Button, H2, Image, ScrollView, Text, View } from 'tamagui';
 
 const Pokemon = () => {
 	const { pokemon } = useGlobalSearchParams();
@@ -33,7 +33,7 @@ const Pokemon = () => {
 					),
 				}}
 			/>
-			<View>
+			<ScrollView>
 				{loading && <Text>Loading...</Text>}
 				{error && <Text>Error: {error.message}</Text>}
 				{data && (
@@ -67,7 +67,7 @@ const Pokemon = () => {
 						<Text>Height: {data.height} feet</Text>
 					</View>
 				)}
-			</View>
+			</ScrollView>
 		</View>
 	);
 };
