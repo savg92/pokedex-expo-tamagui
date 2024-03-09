@@ -2,7 +2,7 @@ import { FlatList } from 'react-native';
 import { Card, Text, View, Image, H2, Paragraph } from 'tamagui';
 import { getPokemons } from '../../services/pokeApi';
 import { useQuery } from '@tanstack/react-query';
-import { Link } from 'expo-router';
+import { Link, Stack } from 'expo-router';
 
 export default function TabOneScreen() {
 	const { data, isLoading, error } = useQuery({
@@ -42,6 +42,13 @@ export default function TabOneScreen() {
 			flex={1}
 			alignItems='center'
 		>
+			<Stack.Screen
+				// name='pokemons'
+				options={{
+					title: 'Pokedex',
+					headerShown: true,
+				}}
+			/>
 			{/* <Text fontSize={20}>Tab One</Text> */}
 			{isLoading && <Text>Loading...</Text>}
 			{error && <Text>Error: {error}</Text>}
