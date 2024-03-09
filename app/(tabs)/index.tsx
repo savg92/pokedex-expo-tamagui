@@ -4,6 +4,47 @@ import { getPokemons } from '../../services/pokeApi';
 import { useQuery } from '@tanstack/react-query';
 import { Link, Stack } from 'expo-router';
 
+const pilColor = (type: string): string => {
+	switch (type) {
+		case 'fire':
+			return 'red';
+		case 'water':
+			return 'blue';
+		case 'grass':
+			return 'green';
+		case 'electric':
+			return '#FFD700';
+		case 'psychic':
+			return 'purple';
+		case 'poison':
+			return 'green';
+		case 'normal':
+			return 'gray';
+		case 'flying':
+			return 'skyblue';
+		case 'bug':
+			return 'green';
+		case 'ground':
+			return 'brown';
+		case 'fighting':
+			return 'red';
+		case 'rock':
+			return 'gray';
+		case 'ghost':
+			return 'purple';
+		case 'ice':
+			return 'lightblue';
+		case 'steel':
+			return 'gray';
+		case 'dark':
+			return 'black';
+		case 'fairy':
+			return 'pink';
+		default:
+			return 'black';
+	}
+};
+
 export default function TabOneScreen() {
 	const { data, isLoading, error } = useQuery({
 		queryKey: ['pokemon'],
@@ -22,7 +63,16 @@ export default function TabOneScreen() {
 				<Link href={`/pokemons/${item.name}`}>
 					<Card.Header>
 						<H2>{item.name[0].toUpperCase() + item.name.slice(1)}</H2>
-						<Paragraph>Type: {item.type}</Paragraph>
+						<Paragraph
+							backgroundColor={pilColor(item.type)}
+							borderWidth={1}
+							borderRadius={50}
+							borderColor={pilColor(item.type)}
+							paddingHorizontal={10}
+							width='fit-content'
+						>
+							Type: {item.type}
+						</Paragraph>
 					</Card.Header>
 					<Card.Footer justifyContent='center'>
 						<Image

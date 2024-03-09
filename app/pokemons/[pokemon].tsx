@@ -29,20 +29,17 @@ const Pokemon = () => {
 					title: `${data?.name[0].toUpperCase() + data?.name.slice(1)}`,
 					headerShown: true,
 					headerLeft: () => (
-						<Button onPress={() => navigate.goBack()}>
-							Back
-						</Button>
+						<Button onPress={() => navigate.goBack()}>Back</Button>
 					),
 				}}
 			/>
-			<View >
+			<View>
 				{loading && <Text>Loading...</Text>}
 				{error && <Text>Error: {error.message}</Text>}
 				{data && (
 					<View gap={10}>
 						<View>
-							<H2
-							>{data.name[0].toUpperCase() + data.name.slice(1)}</H2>
+							<H2>{data.name[0].toUpperCase() + data.name.slice(1)}</H2>
 							<Text>Id: {data.id}</Text>
 						</View>
 						<Image
@@ -52,15 +49,19 @@ const Pokemon = () => {
 						/>
 						<View>
 							<Text>Type:</Text>
-							{data.type.map((type: any, index: number) => (
-								<Text key={index}>{type.type.name}</Text>
-							))}
+							<View paddingLeft={10}>
+								{data.type.map((type: any, index: number) => (
+									<Text key={index}>{type.type.name}</Text>
+								))}
+							</View>
 						</View>
 						<View>
 							<Text>Abilities:</Text>
+							<View paddingLeft={10}>
 							{data.avilities.map((avility: any, index: number) => (
 								<Text key={index}>{avility.ability.name}</Text>
 							))}
+							</View>
 						</View>
 						<Text>Weight: {data.weight} pounds</Text>
 						<Text>Height: {data.height} feet</Text>
