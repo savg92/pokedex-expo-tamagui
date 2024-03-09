@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link, useGlobalSearchParams, useNavigation } from 'expo-router';
+import { useGlobalSearchParams, useNavigation } from 'expo-router';
 import { getPokemon } from '../../services/pokeApi';
 import { useQuery } from '@tanstack/react-query';
 import { Stack } from 'expo-router';
