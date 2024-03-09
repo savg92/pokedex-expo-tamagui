@@ -1,5 +1,5 @@
 import { FlatList } from 'react-native';
-import { Card, Text, View, Image, H2, Paragraph } from 'tamagui';
+import { Card, Text, View, Image, H2, Paragraph, Button } from 'tamagui';
 import { getPokemons } from '../../services/pokeApi';
 import { useQuery } from '@tanstack/react-query';
 import { Link, Stack } from 'expo-router';
@@ -9,7 +9,7 @@ const pilColor = (type: string): string => {
 		case 'fire':
 			return 'red';
 		case 'water':
-			return 'blue';
+			return '#2c62f6';
 		case 'grass':
 			return 'green';
 		case 'electric':
@@ -70,16 +70,14 @@ export default function TabOneScreen() {
 				>
 					<Card.Header justifyContent='flex-start'>
 						<H2>{item.name[0].toUpperCase() + item.name.slice(1)}</H2>
-						<Paragraph
+						<Button
+							disabled
 							backgroundColor={pilColor(item.type)}
-							borderWidth={1}
-							borderRadius={50}
-							borderColor={pilColor(item.type)}
-							paddingHorizontal={10}
-							width='fit-content'
+							size={30}
+							width='70%'
 						>
 							Type: {item.type[0].toUpperCase() + item.type.slice(1)}
-						</Paragraph>
+						</Button>
 					</Card.Header>
 					<Card.Footer justifyContent='center'>
 						<Image
