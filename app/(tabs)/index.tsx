@@ -59,9 +59,16 @@ export default function TabOneScreen() {
 
 	const PokemonCard = ({ item }: { item: PokemonList }) => {
 		return (
-			<Card style={{ marginTop: 10 }}>
-				<Link href={`/pokemons/${item.name}`}>
-					<Card.Header>
+			<Link
+				href={`/pokemons/${item.name}`}
+				asChild
+			>
+				<Card
+					marginVertical={5}
+					$xs={{ flexDirection: 'row', justifyContent: 'space-around' }}
+					$md={{ flexDirection: 'column' }}
+				>
+					<Card.Header justifyContent='flex-start'>
 						<H2>{item.name[0].toUpperCase() + item.name.slice(1)}</H2>
 						<Paragraph
 							backgroundColor={pilColor(item.type)}
@@ -71,7 +78,7 @@ export default function TabOneScreen() {
 							paddingHorizontal={10}
 							width='fit-content'
 						>
-							Type: {item.type}
+							Type: {item.type[0].toUpperCase() + item.type.slice(1)}
 						</Paragraph>
 					</Card.Header>
 					<Card.Footer justifyContent='center'>
@@ -81,9 +88,8 @@ export default function TabOneScreen() {
 							height={150}
 						/>
 					</Card.Footer>
-					<Card.Background />
-				</Link>
-			</Card>
+				</Card>
+			</Link>
 		);
 	};
 
