@@ -1,5 +1,5 @@
-import { Link } from "expo-router";
-import { Button, Card, H2, Image } from "tamagui";
+import { Link } from 'expo-router';
+import { Button, Card, H2, Image } from 'tamagui';
 
 const pilColor = (type: string): string => {
 	switch (type) {
@@ -42,13 +42,16 @@ const pilColor = (type: string): string => {
 	}
 };
 
-	type PokemonList = {
-		name: string;
-		type: string;
-		img: string;
-	};
+type PokemonList = {
+	name: string;
+	type: any;
+	img: string;
+};
 
 const PokemonCard = ({ item }: { item: PokemonList }) => {
+	// console.log(item?.type[0].type.name)
+	// console.log(JSON.stringify(item?.type[0]))
+
 	return (
 		<Link
 			href={`/pokemons/${item.name}`}
@@ -58,16 +61,34 @@ const PokemonCard = ({ item }: { item: PokemonList }) => {
 				marginVertical={5}
 				$xs={{ flexDirection: 'row', justifyContent: 'space-around' }}
 				$md={{ flexDirection: 'column' }}
+                minWidth={200}
 			>
 				<Card.Header justifyContent='flex-start'>
-					<H2>{item.name[0].toUpperCase() + item.name.slice(1)}</H2>
+					<H2>
+						{typeof item?.name === 'string'
+							? item?.name[0].toUpperCase() + item?.name.slice(1)
+							: ''}
+					</H2>
 					<Button
 						disabled
-						backgroundColor={pilColor(item.type)}
+						backgroundColor={pilColor(
+							(typeof item?.type === 'object'
+								? item?.type[0].type.name
+								: typeof item?.type === 'string'
+								? item?.type
+								: ''
+							).toLowerCase()
+						)}
 						size={30}
 						width='70%'
 					>
-						Type: {item.type[0].toUpperCase() + item.type.slice(1)}
+						Type:
+						{typeof item?.type === 'object'
+							? item?.type[0].type.name[0].toUpperCase() +
+							  item?.type[0].type.name.slice(1)
+							: typeof item?.type === 'string'
+							? item?.type[0].toUpperCase() + item?.type.slice(1)
+							: ''}
 					</Button>
 				</Card.Header>
 				<Card.Footer justifyContent='center'>

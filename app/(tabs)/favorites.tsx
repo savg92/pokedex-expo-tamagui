@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
-import { H1, Text, View, Image, ListItem } from 'tamagui';
+import { H1, Text, View, Image, ListItem, H2, Card } from 'tamagui';
 import { getPokemon } from '../../services/pokeApi';
 import { useQueries, useQuery } from '@tanstack/react-query';
 import PokemonCard from '../../components/pokemonCard';
@@ -24,36 +24,34 @@ const favorites = () => {
 		getFavoritePokemons();
 	}, []);
 
-	const queries = favoritePokemons.map((pokemon) => {
-		return {
+	const pokemonQueries = useQueries({
+		queries: favoritePokemons.map((pokemon) => ({
 			queryKey: ['pokemon', pokemon],
 			queryFn: () => getPokemon(pokemon),
-		};
+		})),
 	});
 
-	const results = useQueries({ queries });
+	const isLoading = pokemonQueries.some((query) => query.isLoading);
+	const anyErrors = pokemonQueries.some((query) => query.error);
+
+	if (isLoading) {
+		return <Text>Loading...</Text>;
+	}
+
+	if (anyErrors) {
+		return <Text>An error occurred while fetching data.</Text>;
+	}
 
 	return (
-		<View>
-			<H1>Favotites</H1>
-			{results.map((result, index) => {
-				if (result.isLoading) {
-					return <Text key={index}>Loading...</Text>;
-				} else if (result.error) {
-					return <Text key={index}>Error: {result.error.message}</Text>;
-				} else {
-					return (
-						<View key={index}>
-							<Text>{result.data?.name}</Text>
-							<Image
-								key={index}
-								source={{ uri: result.data?.img }}
-								style={{ width: 150, height: 150 }}
-							/>
-						</View>
-					);
-				}
-			})}
+		<View
+			flex={1}
+			alignItems='center'
+		>
+			<FlatList
+				data={pokemonQueries.map((query) => query.data)}
+				keyExtractor={(item, index) => item?.name + item?.id || `item-${index}`}
+				renderItem={({ item }) => (item ? <PokemonCard item={item} /> : null)}
+			/>
 		</View>
 	);
 };

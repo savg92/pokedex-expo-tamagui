@@ -23,7 +23,6 @@ export default function TabOneScreen() {
 					headerShown: true,
 				}}
 			/>
-			{/* <Text fontSize={20}>Tab One</Text> */}
 			{isLoading && <Text>Loading...</Text>}
 			{error && <Text>Error: {error}</Text>}
 			{data && (
