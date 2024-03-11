@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
-import { H1, Text, View, Image } from 'tamagui';
+import { H1, Text, View, Image, ListItem } from 'tamagui';
 import { getPokemon } from '../../services/pokeApi';
 import { useQueries, useQuery } from '@tanstack/react-query';
 import PokemonCard from '../../components/pokemonCard';
@@ -32,8 +32,6 @@ const favorites = () => {
 	});
 
 	const results = useQueries({ queries });
-	// console.log(favoritePokemons);
-	console.log(results);
 
 	return (
 		<View>
@@ -46,30 +44,16 @@ const favorites = () => {
 				} else {
 					return (
 						<View key={index}>
-						<Text key={index}>{result.data?.name}</Text>
-						<Image
-							key={index}
-							source={{ uri: result.data?.img }}
-							style={{ width: 150, height: 150 }}
-						/>
+							<Text>{result.data?.name}</Text>
+							<Image
+								key={index}
+								source={{ uri: result.data?.img }}
+								style={{ width: 150, height: 150 }}
+							/>
 						</View>
 					);
 				}
 			})}
-
-			{/* {
-				results.map((result, index) => {
-					if (result.isLoading) {
-						return <Text key={index}>Loading...</Text>;
-					} else if (result.error) {
-						return <Text key={index}>Error: {result.error.message}</Text>;
-					} else if (result.data) {
-						return <PokemonCard key={index} item={result.data} />;
-					} else {
-						return null;
-					}
-				})
-			} */}
 		</View>
 	);
 };
