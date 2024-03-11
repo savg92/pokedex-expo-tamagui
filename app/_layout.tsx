@@ -55,6 +55,13 @@ export default function RootLayout() {
 							name='modal'
 							options={{ presentation: 'modal', headerShown: false }}
 						/>
+						<Stack.Screen
+							name='favorites'
+							options={{
+								title: 'Favorites',
+								headerShown: true,
+							}}
+						/>
 					</Stack>
 				</QueryClientProvider>
 			</ThemeProvider>

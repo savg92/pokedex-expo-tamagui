@@ -34,17 +34,17 @@ const Pokemon = () => {
 		}
 
 		getFavoritePokemons();
-	}, []);
+	}, [favoritePokemons]);
 
 	const handleAddRemoveFavorite = async () => {
 		try {
 			const value = await AsyncStorage.getItem('favoritePokemons');
 			if (value !== null) {
 				const favoritePokemons = JSON.parse(value);
-				const isFavorite = favoritePokemons.includes(data?.id);
+				const isFavorite = favoritePokemons.includes(data?.name);
 				if (isFavorite) {
 					const newFavoritePokemons = favoritePokemons.filter(
-						(pokemonId: number) => pokemonId !== data?.id
+						(pokemonId: number) => pokemonId !== data?.name
 					);
 					await AsyncStorage.setItem(
 						'favoritePokemons',
@@ -53,11 +53,11 @@ const Pokemon = () => {
 				} else {
 					await AsyncStorage.setItem(
 						'favoritePokemons',
-						JSON.stringify([...favoritePokemons, data?.id])
+						JSON.stringify([...favoritePokemons, data?.name])
 					);
 				}
 			} else {
-				await AsyncStorage.setItem('favoritePokemons', JSON.stringify([data?.id]));
+				await AsyncStorage.setItem('favoritePokemons', JSON.stringify([data?.name]));
 			}
 		} catch (e) {
 			console.log('Error:', e);
@@ -118,13 +118,13 @@ const Pokemon = () => {
 							<H4>Height:</H4>
 							<Text>{data.height} feet</Text>
 						</View>
-						{favoritePokemons.includes(data.id) ? (
+						{favoritePokemons.includes(data.name) ? (
 							<Button onPress={handleAddRemoveFavorite}
 							>
 								Remove from favorites
 							</Button>
 						) : (
-							<Button onPress={handleAddRemoveFavorite}
+							<Button onPress={() => handleAddRemoveFavorite()}
 							>
 								Add to favorites
 							</Button>
