@@ -17,7 +17,6 @@ export default function TabOneScreen() {
 			alignItems='center'
 		>
 			<Stack.Screen
-				// name='pokemons'
 				options={{
 					title: 'Pokedex',
 					headerShown: true,

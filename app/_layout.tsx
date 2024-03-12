@@ -5,11 +5,11 @@ import {
 	ThemeProvider,
 } from '@react-navigation/native';
 
-import { Stack } from 'expo-router';
+import { Stack, Tabs } from 'expo-router';
 
 import { useColorScheme } from 'react-native';
 
-import { TamaguiProvider } from 'tamagui';
+import { TamaguiProvider, Text } from 'tamagui';
 import { tamaguiConfig } from '../tamagui.config';
 
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
@@ -54,13 +54,6 @@ export default function RootLayout() {
 						<Stack.Screen
 							name='modal'
 							options={{ presentation: 'modal', headerShown: false }}
-						/>
-						<Stack.Screen
-							name='favorites'
-							options={{
-								title: 'Favorites',
-								headerShown: true,
-							}}
 						/>
 					</Stack>
 				</QueryClientProvider>

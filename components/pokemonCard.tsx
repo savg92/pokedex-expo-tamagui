@@ -49,9 +49,6 @@ type PokemonList = {
 };
 
 const PokemonCard = ({ item }: { item: PokemonList }) => {
-	// console.log(item?.type[0].type.name)
-	// console.log(JSON.stringify(item?.type[0]))
-
 	return (
 		<Link
 			href={`/pokemons/${item.name}`}
@@ -61,7 +58,7 @@ const PokemonCard = ({ item }: { item: PokemonList }) => {
 				marginVertical={5}
 				$xs={{ flexDirection: 'row', justifyContent: 'space-around' }}
 				$md={{ flexDirection: 'column' }}
-                minWidth={200}
+				minWidth={200}
 			>
 				<Card.Header justifyContent='flex-start'>
 					<H2>

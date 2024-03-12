@@ -98,7 +98,7 @@ const Pokemon = () => {
 							<H4>Type:</H4>
 							<View paddingLeft={10}>
 								{data.type.map((type: any, index: number) => (
-									<Text key={index}>{type.type.name}</Text>
+									<Text key={index}>{type.type.name[0].toUpperCase() + type.type.name.slice(1)}</Text>
 								))}
 							</View>
 						</View>
@@ -106,7 +106,7 @@ const Pokemon = () => {
 							<H4>Abilities:</H4>
 							<View paddingLeft={10}>
 							{data.avilities.map((avility: any, index: number) => (
-								<Text key={index}>{avility.ability.name}</Text>
+								<Text key={index}>{avility.ability.name[0].toUpperCase() + avility.ability.name.slice(1)}</Text>
 							))}
 							</View>
 						</View>

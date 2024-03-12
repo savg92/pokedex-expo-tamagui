@@ -1,28 +1,34 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
-import { H1, Text, View, Image, ListItem, H2, Card } from 'tamagui';
+import { Text, View } from 'tamagui';
 import { getPokemon } from '../../services/pokeApi';
 import { useQueries, useQuery } from '@tanstack/react-query';
 import PokemonCard from '../../components/pokemonCard';
 import { FlatList } from 'react-native';
+import { Stack } from 'expo-router';
 
-const favorites = () => {
+const TabTreeScreen = () => {
 	const [favoritePokemons, setFavoritePokemons] = useState<string[]>([]);
 
-	useEffect(() => {
-		const getFavoritePokemons = async () => {
-			try {
-				const value = await AsyncStorage.getItem('favoritePokemons');
-				if (value !== null) {
-					setFavoritePokemons(JSON.parse(value));
-				}
-			} catch (e) {
-				console.log('Error:', e);
-			}
-		};
+	console.log(favoritePokemons);
 
+	const getFavoritePokemons = async() => {
+		await AsyncStorage.getItem('favoritePokemons')
+			.then((data) => {
+				if (data !== null) {
+					setFavoritePokemons(JSON.parse(data));
+				}
+			})
+			.catch((e) => {
+				console.log('Error:', e);
+			});
+	};
+	
+	useEffect(() => {
 		getFavoritePokemons();
 	}, []);
+	
+	console.log(favoritePokemons);
 
 	const pokemonQueries = useQueries({
 		queries: favoritePokemons.map((pokemon) => ({
@@ -47,13 +53,22 @@ const favorites = () => {
 			flex={1}
 			alignItems='center'
 		>
+			<Stack.Screen
+				options={{
+					title: 'Favorites',
+					headerShown: true,
+				}}
+			/>
+			{favoritePokemons.length === 0 && <Text>No favorite pokemons found.</Text>}
+			{favoritePokemons.length > 0 && 
 			<FlatList
 				data={pokemonQueries.map((query) => query.data)}
 				keyExtractor={(item, index) => item?.name + item?.id || `item-${index}`}
 				renderItem={({ item }) => (item ? <PokemonCard item={item} /> : null)}
 			/>
+			}
 		</View>
 	);
 };
 
-export default favorites;
+export default TabTreeScreen;
