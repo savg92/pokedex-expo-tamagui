@@ -31,7 +31,7 @@ const Pokemon = () => {
 			} catch (e) {
 				console.log('Error:', e);
 			}
-		}
+		};
 
 		getFavoritePokemons();
 	}, [favoritePokemons]);
@@ -57,12 +57,15 @@ const Pokemon = () => {
 					);
 				}
 			} else {
-				await AsyncStorage.setItem('favoritePokemons', JSON.stringify([data?.name]));
+				await AsyncStorage.setItem(
+					'favoritePokemons',
+					JSON.stringify([data?.name])
+				);
 			}
 		} catch (e) {
 			console.log('Error:', e);
 		}
-	}
+	};
 
 	return (
 		<View
@@ -98,16 +101,21 @@ const Pokemon = () => {
 							<H4>Type:</H4>
 							<View paddingLeft={10}>
 								{data.type.map((type: any, index: number) => (
-									<Text key={index}>{type.type.name[0].toUpperCase() + type.type.name.slice(1)}</Text>
+									<Text key={index}>
+										{type.type.name[0].toUpperCase() + type.type.name.slice(1)}
+									</Text>
 								))}
 							</View>
 						</View>
 						<View>
 							<H4>Abilities:</H4>
 							<View paddingLeft={10}>
-							{data.avilities.map((avility: any, index: number) => (
-								<Text key={index}>{avility.ability.name[0].toUpperCase() + avility.ability.name.slice(1)}</Text>
-							))}
+								{data.avilities.map((avility: any, index: number) => (
+									<Text key={index}>
+										{avility.ability.name[0].toUpperCase() +
+											avility.ability.name.slice(1)}
+									</Text>
+								))}
 							</View>
 						</View>
 						<View>
@@ -119,13 +127,11 @@ const Pokemon = () => {
 							<Text>{data.height} feet</Text>
 						</View>
 						{favoritePokemons.includes(data.name) ? (
-							<Button onPress={handleAddRemoveFavorite}
-							>
+							<Button onPress={handleAddRemoveFavorite}>
 								Remove from favorites
 							</Button>
 						) : (
-							<Button onPress={() => handleAddRemoveFavorite()}
-							>
+							<Button onPress={() => handleAddRemoveFavorite()}>
 								Add to favorites
 							</Button>
 						)}
