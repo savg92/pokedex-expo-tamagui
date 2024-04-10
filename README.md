@@ -1,1 +1,3 @@
-note because this is in a monorepo had to remove react, react-dom, and react-native-web deps and change metro.config.js a bit.
+### Pokedex
+
+This is a simple pokedex app that uses the PokeAPI to display information about different pokemons. The app is built using React Native, Expo and Tamagui.
