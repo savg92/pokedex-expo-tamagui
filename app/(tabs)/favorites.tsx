@@ -5,7 +5,7 @@ import { getPokemon } from '../../services/pokeApi';
 import { useQueries, useQuery } from '@tanstack/react-query';
 import PokemonCard from '../../components/pokemonCard';
 import { FlatList } from 'react-native';
-import { Stack } from 'expo-router';
+import { Stack, useFocusEffect } from 'expo-router';
 
 const TabTreeScreen = () => {
 	const [favoritePokemons, setFavoritePokemons] = useState<string[]>([]);
@@ -24,9 +24,14 @@ const TabTreeScreen = () => {
 			});
 	};
 	
-	useEffect(() => {
+	// useEffect(() => {
+	// 	getFavoritePokemons();
+	// }, []);
+
+	useFocusEffect(() => {
 		getFavoritePokemons();
-	}, []);
+	}
+	);
 	
 	console.log(favoritePokemons);
 
