@@ -127,11 +127,17 @@ const Pokemon = () => {
 							<Text>{data.height} feet</Text>
 						</View>
 						{favoritePokemons.includes(data.name) ? (
-							<Button onPress={handleAddRemoveFavorite}>
+							<Button
+								onPress={handleAddRemoveFavorite}
+								$theme-light={{ backgroundColor: 'gray' }}
+							>
 								Remove from favorites
 							</Button>
 						) : (
-							<Button onPress={() => handleAddRemoveFavorite()}>
+							<Button
+								onPress={() => handleAddRemoveFavorite()}
+								$theme-light={{ backgroundColor: 'gray' }}
+							>
 								Add to favorites
 							</Button>
 						)}
